@@ -1,8 +1,56 @@
+﻿@model PostUrlVM
+
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Homepage";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@{
+    if (TempData["Message"] != null)
+    {
+        <div class="container">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> @TempData["Message"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    }
+}
+
+<section class="landing py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-4">
+                <img src="~/img/welcome-img.png" class="img-fluid" alt="" />
+            </div>
+            <div class="col-lg-8">
+                <h1 class="display-4">URL-shortener service</h1>
+                <h1 class="display-4">Easy, comfortable and fast</h1>
+                <p class="lead">
+                    Turn a bulky and ugly original link into a short and beautiful one.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <div class="container">
+        <div class="url-shorten-feature">
+            <form class="url-shorten-form" id="url-shorten-form"
+                  asp-controller="Home"
+                  asp-action="ShortenUrl">
+                <div>
+                    <input asp-for="Url"
+                           type="text"
+                           class="url-input"
+                           placeholder="Shorten a link here..."
+                           autocomplete="off" />
+
+                    <span asp-validation-for="Url" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-lg" style="">Shorten It!</button>
+            </form>
+            <div class="url-shorten-results"></div>
+        </div>
+    </div>
+</section>
